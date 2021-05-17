@@ -1,0 +1,77 @@
+{
+  "name": "electron-webpack-boilerplate",
+  "version": "1.0.0",
+  "description": "A boilerplate that has Electron and Webpack all setup for you",
+  "private": true,
+  "main": "dist/main/main.js",
+  "author": "Armster15",
+  "license": "MIT",
+  "browserslist": [
+    "last 2 Chrome versions"
+  ],
+  "scripts": {
+    "postinstall": "electron-builder install-app-deps",
+    "compile": "npm run clean && webpack --config ./build/webpack.prod.js",
+    "prod": "npm run compile && electron .",
+    "clean": "rimraf dist",
+    "start": "npm run clean && node build/start.js",
+    "build": "npm run compile && electron-builder"
+  },
+  "build": {
+    "productName": "YourProductName",
+    "appId": "com.yourcompany|electron.yourproductname",
+    "directories": {
+      "buildResources": "resources",
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "LICENSE"
+    ],
+    "win": {
+      "target": [
+        "nsis",
+        "msi"
+      ]
+    },
+    "linux": {
+      "target": [
+        "deb",
+        "rpm",
+        "snap",
+        "AppImage"
+      ]
+    }
+  },
+  "devDependencies": {
+    "@babel/core": "^7.14.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@babel/plugin-transform-react-jsx": "^7.13.12",
+    "@babel/preset-env": "^7.14.1",
+    "@babel/preset-react": "^7.13.13",
+    "babel-loader": "^8.2.2",
+    "babel-plugin-module-resolver": "^4.1.0",
+    "chalk": "^2.4.2",
+    "copy-webpack-plugin": "^8.1.1",
+    "csp-html-webpack-plugin": "^5.1.0",
+    "css-loader": "^5.2.4",
+    "css-minimizer-webpack-plugin": "^2.0.0",
+    "electron": "^12.0.7",
+    "electron-builder": "^22.11.3",
+    "electron-reloader": "^1.2.1",
+    "friendly-errors-webpack-plugin": "^1.7.0",
+    "get-port": "^5.1.1",
+    "html-loader": "^2.1.2",
+    "html-webpack-plugin": "^5.3.1",
+    "mini-css-extract-plugin": "^1.6.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "rimraf": "^2.7.1",
+    "style-loader": "^2.0.0",
+    "url-loader": "^4.1.1",
+    "webpack": "^5.37.0",
+    "webpack-cli": "^4.7.0",
+    "webpack-dev-server": "^3.11.2",
+    "webpack-merge": "^5.7.3"
+  }
+}

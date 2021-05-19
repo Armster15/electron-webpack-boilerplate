@@ -11,16 +11,15 @@ module.exports = {
   },
   module: {
     rules: [
-      // loads .js/jsx files
       {
-        test: /\.jsx?$/,
+        test: /\.(js|jsx|ts|tsx)$/,
         include: path.resolve(__dirname, "../src/renderer"),
         loader: "babel-loader",
         resolve: {
-          extensions: [".js", ".jsx", ".json"],
+          // Extensions that should be used to resolve modules
+          extensions: [".js", ".jsx", ".json", ".ts", ".tsx"],
         },
       },
-      // loads .css files
       {
         test: /\.css$/,
         include: [

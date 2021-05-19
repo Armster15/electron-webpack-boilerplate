@@ -1,4 +1,4 @@
-const { app, BrowserWindow, shell } = require('electron');
+const { app, BrowserWindow, shell } = require("electron");
 const path = require("path");
 const url = require("url");
 const isDev = process.env.NODE_ENV === "development";
@@ -9,11 +9,12 @@ let mainWindow;
 
 // Restarts Electron when there is a change in this file
 try {
-  require('electron-reloader')(module, {
+  require("electron-reloader")(module, {
     watchRenderer: false, // We setup HMR with Webpack, so electron-reloader only reloads the Electron process
   });
+} catch (err) {
+  console.error(err);
 }
-catch(err) {console.error(err)}
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -26,17 +27,16 @@ function createWindow() {
       contextIsolation: true,
       enableRemoteModule: false,
       preload: path.join(__dirname, "preload.js"),
-      disableBlinkFeatures: "Auxclick"
-    }
+      disableBlinkFeatures: "Auxclick",
+    },
   });
 
   // Load app
   if (isDev) {
     mainWindow.loadURL(`http://localhost:${process.env.WDS_PORT}`);
-  } 
-  else {
+  } else {
     mainWindow.loadURL(
-      url.pathToFileURL(path.join(__dirname, '../renderer/', "index.html")).href
+      url.pathToFileURL(path.join(__dirname, "../renderer/", "index.html")).href
     );
   }
 
@@ -47,14 +47,14 @@ function createWindow() {
     // when you should delete the corresponding element.
     mainWindow = null;
   });
-  
+
   // Prevent window.open() from creating a new window, instead open
   // links in the browser
   mainWindow.webContents.setWindowOpenHandler(({ url }) => {
     shell.openExternal(url);
-    return { action: 'deny' };
+    return { action: "deny" };
   });
-};
+}
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.

@@ -17,8 +17,8 @@ module.exports = {
         include: path.resolve(__dirname, "../src/renderer"),
         loader: "babel-loader",
         resolve: {
-          extensions: [".js", ".jsx", ".json"]
-        }
+          extensions: [".js", ".jsx", ".json"],
+        },
       },
       // loads .css files
       {
@@ -27,41 +27,31 @@ module.exports = {
           path.resolve(__dirname, "../src/renderer"),
           path.resolve(__dirname, "../node_modules/"),
         ],
-        use: [
-          MiniCssExtractPlugin.loader,
-          "css-loader"
-        ],
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
         resolve: {
-          extensions: [".css"]
-        }
+          extensions: [".css"],
+        },
       },
       // loads common image formats
       {
         test: /\.(eot|woff|woff2|ttf|svg|png|jpg|gif)$/,
-        use: "url-loader"
-      }
-    ]
+        use: "url-loader",
+      },
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "../src/renderer/index.html"),
-      filename: "index.html"
+      filename: "index.html",
     }),
     new MiniCssExtractPlugin(),
-    // new WebpackBar({
-    //   reporter: {
-    //     start() {
-    //       console.clear();
-    //     }
-    //   }
-    // }),
     new CopyPlugin({
       patterns: [
         {
           from: path.resolve(__dirname, "../src/main/"),
-          to: path.resolve(__dirname, "../dist/main/")
-        }
-      ]
-    })
-  ]
+          to: path.resolve(__dirname, "../dist/main/"),
+        },
+      ],
+    }),
+  ],
 };

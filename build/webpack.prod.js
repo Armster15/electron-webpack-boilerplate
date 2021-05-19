@@ -7,7 +7,7 @@ module.exports = merge(base, {
   mode: "production",
   devtool: false,
   output: {
-    filename: 'bundle.production.js'
+    filename: "bundle.production.js",
   },
   plugins: [
     // You can paste your CSP in this website https://csp-evaluator.withgoogle.com/
@@ -19,20 +19,20 @@ module.exports = merge(base, {
         "script-src": ["'self'"],
         "style-src": ["'self'"],
         "frame-src": ["'none'"],
-        "worker-src": ["'none'"]
+        "worker-src": ["'none'"],
       },
       {
         hashEnabled: {
-          "style-src": false
-        }
+          "style-src": false,
+        },
       }
-    )
+    ),
   ],
   optimization: {
     minimize: true,
     minimizer: [
       "...", // This adds default minimizers to webpack. For JS, Terser is used. // https://webpack.js.org/configuration/optimization/#optimizationminimizer
-      new CssMinimizerPlugin()
-    ]
-  }
+      new CssMinimizerPlugin(),
+    ],
+  },
 });

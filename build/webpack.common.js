@@ -51,12 +51,15 @@ module.exports = {
         {
           from: path.resolve(__dirname, "../src/main/**/*.ts").split(path.sep).join(path.posix.sep),
           to: path.resolve(__dirname, "../dist/main/[name].js"),
-          transform(content, absoluteFrom) {
-            return babel.transform(content, {
-              filename: path.basename(absoluteFrom), // path.basename gets just the filename, remove all the path stuff
-              comments: false,
-              presets: ["@babel/preset-typescript"]
-            }).code
+          transform: {
+            transformer(content, absoluteFrom) {
+              return babel.transform(content, {
+                filename: path.basename(absoluteFrom), // path.basename gets just the filename, remove all the path stuff
+                comments: false,
+                presets: ["@babel/preset-typescript"]
+              }).code  
+            },
+            cache: true
           },
           noErrorOnMissing: true
         },

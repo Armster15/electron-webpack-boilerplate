@@ -26,6 +26,7 @@ const config = require("./webpack.dev.js");
     },
     writeToDisk: true,
     quiet: true,
+    historyApiFallback: true,
   };
 
   WebpackDevServer.addDevServerEntrypoints(config, options);

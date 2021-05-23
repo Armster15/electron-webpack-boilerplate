@@ -21,16 +21,42 @@ module.exports = {
           extensions: [".js", ".jsx", ".json", ".ts", ".tsx"],
         },
       },
+      // loads .css files
       {
-        test: /\.css$/,
+        test: /\.global\.css$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+            },
+          },
+        ],
         include: [
           path.resolve(__dirname, "../src/renderer"),
           path.resolve(__dirname, "../node_modules/"),
         ],
-        use: [MiniCssExtractPlugin.loader, "css-loader"],
-        resolve: {
-          extensions: [".css"],
-        },
+      },
+      {
+        test: /^((?!\.global).)*\.css$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                localIdentName: '[name]__[local]__[hash:base64:5]',
+              },
+              sourceMap: true,
+              importLoaders: 1,
+            },
+          },
+        ],
+        include: [
+          path.resolve(__dirname, "../src/renderer"),
+          path.resolve(__dirname, "../node_modules/"),
+        ],
       },
       // loads common image formats
       {

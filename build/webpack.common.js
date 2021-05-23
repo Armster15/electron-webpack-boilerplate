@@ -75,8 +75,10 @@ module.exports = {
       patterns: [
         // Convert TypeScript to JavaScript
         {
-          from: path.resolve(__dirname, "../src/main/**/*.ts").split(path.sep).join(path.posix.sep),
-          to: path.resolve(__dirname, "../dist/main/[name].js"),
+          from: path.resolve(__dirname, "../src/main").split(path.sep).join(path.posix.sep),
+          to({ context, absoluteFilename }) {
+            return path.resolve(__dirname, "../dist/main/", path.relative(context, path.dirname(absoluteFilename)), "[name].js")
+          },
           transform: {
             transformer(content, absoluteFrom) {
               return babel.transform(content, {
@@ -87,12 +89,18 @@ module.exports = {
             },
             cache: true
           },
-          noErrorOnMissing: true
+          globOptions: {
+            ignore: ["**/!(*.ts)"]
+          },
+          noErrorOnMissing: true,
         },
         // Files that aren't TypeScript just copy them to /dist/main
         {
-          from: path.resolve(__dirname, "../src/main/**/!(*.ts)").split(path.sep).join(path.posix.sep),
-          to: path.resolve(__dirname, "../dist/main/[name][ext]"),
+          from: path.resolve(__dirname, "../src/main").split(path.sep).join(path.posix.sep),
+          to: path.resolve(__dirname, "../dist/main"),
+          globOptions: {
+            ignore: ["**/*.ts"]
+          },
           noErrorOnMissing: true
         },
       ]

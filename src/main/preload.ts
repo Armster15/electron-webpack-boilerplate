@@ -1,4 +1,4 @@
-const { contextBridge } = require("electron");
+import { contextBridge } from "electron";
 
 declare global {
   interface Window { versions: NodeJS.ProcessVersions }

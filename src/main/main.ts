@@ -1,11 +1,11 @@
-const { app, BrowserWindow, shell } = require("electron");
-const path = require("path");
-const url = require("url");
+import { app, BrowserWindow, shell } from "electron";
+import path from "path";
+import url from "url";
 const isDev = process.env.NODE_ENV === "development";
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let mainWindow;
+let mainWindow: BrowserWindow | null;
 
 // Restarts Electron when there is a change in this file
 try {

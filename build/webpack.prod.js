@@ -1,7 +1,9 @@
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CspHtmlWebpackPlugin = require("csp-html-webpack-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const { merge } = require("webpack-merge");
 const base = require("./webpack.common");
+const path = require("path");
 
 module.exports = merge(base, {
   mode: "production",
@@ -10,6 +12,10 @@ module.exports = merge(base, {
     filename: "bundle.production.js",
   },
   plugins: [
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, "../src/renderer/index.html"),
+      filename: "index.html",
+    }),
     // You can paste your CSP in this website https://csp-evaluator.withgoogle.com/
     // for it to give you suggestions on how strong your CSP is
     new CspHtmlWebpackPlugin(

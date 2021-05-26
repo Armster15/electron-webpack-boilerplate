@@ -75,35 +75,39 @@ module.exports = {
       patterns: [
         // Convert TypeScript to JavaScript
         {
-          from: path.resolve(__dirname, "../src/main").split(path.sep).join(path.posix.sep),
+          from: path.resolve(__dirname, "../src/main"),
           to({ context, absoluteFilename }) {
-            return path.resolve(__dirname, "../dist/main/", path.relative(context, path.dirname(absoluteFilename)), "[name].js")
+            return path.resolve(
+              __dirname,
+              "../dist/main/",
+              path.relative(context, path.dirname(absoluteFilename)), // Preserves all the nested directories the file is in
+              "[name].js"
+            );
           },
           transform: {
-            transformer(content, absoluteFrom) {
-              return babel.transform(content, {
-                filename: path.basename(absoluteFrom), // path.basename gets just the filename, remove all the path stuff
+            transformer: (content, absoluteFrom) =>
+              babel.transform(content, {
+                filename: path.basename(absoluteFrom),
                 comments: false,
-                presets: ["@babel/preset-typescript"]
-              }).code  
-            },
-            cache: true
+                presets: ["@babel/preset-typescript"],
+              }).code,
+            cache: true,
           },
           globOptions: {
-            ignore: ["**/!(*.ts)"]
+            ignore: ["**/!(*.ts)"],
           },
           noErrorOnMissing: true,
         },
         // Files that aren't TypeScript just copy them to /dist/main
         {
-          from: path.resolve(__dirname, "../src/main").split(path.sep).join(path.posix.sep),
+          from: path.resolve(__dirname, "../src/main"),
           to: path.resolve(__dirname, "../dist/main"),
           globOptions: {
-            ignore: ["**/*.ts"]
+            ignore: ["**/*.ts"],
           },
-          noErrorOnMissing: true
+          noErrorOnMissing: true,
         },
-      ]
-    })
+      ],
+    }),
   ],
 };

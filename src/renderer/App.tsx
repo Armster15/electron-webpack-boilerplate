@@ -1,3 +1,5 @@
+/// <reference path="../main/preload.ts" />
+
 import React from 'react';
 
 const App = () => (

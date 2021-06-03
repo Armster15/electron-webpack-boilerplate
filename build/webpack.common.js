@@ -5,7 +5,7 @@ const babel = require("@babel/core");
 
 module.exports = {
   target: "web",
-  entry: path.resolve(__dirname, "../src/renderer/index.js"),
+  entry: path.resolve(__dirname, "../src/renderer/index.tsx"),
   output: {
     path: path.resolve(__dirname, "../dist/renderer"),
   },

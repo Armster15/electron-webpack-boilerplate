@@ -26,15 +26,8 @@ module.exports = {
         use: [
           MiniCssExtractPlugin.loader,
           {
-            loader: 'css-loader',
-            options: {
-              sourceMap: true,
-            },
+            loader: "css-loader",
           },
-        ],
-        include: [
-          path.resolve(__dirname, "../src/renderer"),
-          path.resolve(__dirname, "../node_modules/"),
         ],
       },
       {
@@ -42,19 +35,34 @@ module.exports = {
         use: [
           MiniCssExtractPlugin.loader,
           {
-            loader: 'css-loader',
+            loader: "css-loader",
             options: {
               modules: {
-                localIdentName: '[name]__[local]__[hash:base64:5]',
+                localIdentName: "[name]__[local]__[hash:base64:5]",
               },
-              sourceMap: true,
               importLoaders: 1,
             },
           },
         ],
-        include: [
-          path.resolve(__dirname, "../src/renderer"),
-          path.resolve(__dirname, "../node_modules/"),
+      },
+      {
+        test: /\.global\.s[ac]ss$/,
+        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+      },
+      {
+        test: /^((?!\.global).)*\.s[ac]ss$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: "css-loader",
+            options: {
+              modules: {
+                localIdentName: "[name]__[local]__[hash:base64:5]",
+              },
+              importLoaders: 1,
+            },
+          },
+          "sass-loader",
         ],
       },
       // loads common image formats

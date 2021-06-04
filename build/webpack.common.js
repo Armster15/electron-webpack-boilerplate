@@ -89,7 +89,7 @@ module.exports = {
             cache: true,
           },
           globOptions: {
-            ignore: ["**/!(*.ts)"],
+            ignore: ["**/!(*.ts)", "**/*.d.ts"],
           },
           noErrorOnMissing: true,
         },
@@ -98,7 +98,7 @@ module.exports = {
           from: path.resolve(__dirname, "../src/main"),
           to: path.resolve(__dirname, "../dist/main"),
           globOptions: {
-            ignore: ["**/*.ts"],
+            ignore: ["**/*.ts", "**/*.d.ts"],
           },
           noErrorOnMissing: true,
         },
